@@ -15,11 +15,23 @@ def _build_auth_params(public_key: str, private_key: str) -> Dict[str, str]:
 
 
 def _get_keys() -> tuple[str, str]:
-    load_dotenv()
-    public_key = os.getenv("PUBLIC_KEY")
-    private_key = os.getenv("PRIVATE_KEY")
-    if not public_key or not private_key:
-        raise RuntimeError("Missing PUBLIC_KEY or PRIVATE_KEY environment variables")
+    # Hardcoded API keys for testing purposes
+    public_key = "your_public_key_here"
+    private_key = "your_private_key_here"
+    
+    # Alternative: try to load from environment first, fallback to hardcoded
+    try:
+        load_dotenv()
+        env_public = os.getenv("PUBLIC_KEY")
+        env_private = os.getenv("PRIVATE_KEY")
+        if env_public and env_private:
+            return env_public, env_private
+    except:
+        pass
+    
+    if public_key == "your_public_key_here" or private_key == "your_private_key_here":
+        raise RuntimeError("Please replace 'your_public_key_here' and 'your_private_key_here' with your actual Marvel API keys")
+    
     return public_key, private_key
 
 
