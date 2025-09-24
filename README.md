@@ -1,54 +1,31 @@
 # Marvel API Python Challenge
 
-This project demonstrates how to interact with the Marvel API to fetch character data.
 
-## Setup
+This project was built as part of a technical test.
+It connects to the Marvel Comics API and retrieves character data using hardcoded API keys, as explicitly requested for the review.
 
-1. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+Features
 
-2. Get your Marvel API keys from [Marvel Developer Portal](https://developer.marvel.com/)
+Authentication using ts + public key + private key + md5 hash.
 
-3. Replace the hardcoded keys in `marvel_client.py`:
-   - Find lines 19-20 in the `_get_keys()` function
-   - Replace `"your_public_key_here"` with your actual public key
-   - Replace `"your_private_key_here"` with your actual private key
+Fetch characters with pagination (limit + offset).
 
-## Usage
+Option to filter by name prefix (nameStartsWith).
 
-### Basic test (prints 3 character names):
-```bash
-python3 marvel_client.py
-```
+Fetch related comics for a given character.
 
-### Export characters to CSV:
-```python
-from marvel_client import iter_all_characters
-import csv
+Simple script that prints sample characters to the console.
 
-# Export to CSV
-with open('characters.csv', 'w', newline='', encoding='utf-8') as f:
-    writer = csv.DictWriter(f, fieldnames=['id', 'name', 'description'])
-    writer.writeheader()
-    
-    for character in iter_all_characters(max_items=100):
-        writer.writerow({
-            'id': character.get('id'),
-            'name': character.get('name'),
-            'description': (character.get('description') or '').replace('\n', ' ').strip()
-        })
-```
+How to Run
+python marvel_client.py
 
-## Files
 
-- `marvel_client.py` - Main script with Marvel API functions
-- `marvel_characters.csv` - Sample exported data (300 characters)
-- `requirements.txt` - Python dependencies
+By default, it will fetch 3 characters and print their names.
 
-## API Functions
+Notes
 
-- `get_characters()` - Fetch characters with pagination and filtering
-- `iter_all_characters()` - Generator to iterate through all characters
-- `get_character_comics()` - Fetch comics for a specific character
+API keys are hardcoded for review purposes only, as required in the test instructions.
+
+Keys will be rotated after the evaluation.
+
+For production use, environment variables should be used instead of hardcoding.
